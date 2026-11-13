@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090d18">
+<title>Smart Money 8.2</title>
+<style>
+:root{--bg:#080d18;--panel:#111a2b;--panel2:#172338;--line:#293750;--gold:#e8bd62;--gold2:#f5d995;--text:#f4f6fb;--muted:#9eacc2;--green:#46d6a0;--red:#ff7181;--blue:#79baff;--shadow:0 16px 40px #0005}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#1b2942 0,transparent 55%),var(--bg);color:var(--text);font-family:Arial,Tahoma,sans-serif;padding:14px;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}main{max-width:1100px;margin:auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 2px 20px}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,#f6d98e,#b78028);display:grid;place-items:center;color:#17120a;font-size:25px;box-shadow:0 7px 24px #d7a94b35}.brand h1{font-size:22px;letter-spacing:1px;margin:0;color:var(--gold2)}.brand p{margin:5px 0 0;color:var(--muted);font-size:12px}.head-actions{display:flex;gap:8px;align-items:center}
+.btn,.icon-btn{border:1px solid var(--line);border-radius:12px;padding:11px 14px;background:#1b2940;color:var(--text);font-weight:700;transition:.2s}.btn:hover,.icon-btn:hover{transform:translateY(-1px);border-color:var(--gold)}.btn.gold{background:linear-gradient(135deg,#f2d38a,#c08a35);border:0;color:#17120a}.btn.green{background:#155b4b;border-color:#247b66;color:#baf5df}.btn.red{background:#5a2633;border-color:#85404d;color:#ffd0d6}.btn.ghost{background:transparent}.btn.small{padding:8px 10px;font-size:12px}.icon-btn{padding:9px 11px}
+.card{background:linear-gradient(145deg,#152137,#101827);border:1px solid var(--line);border-radius:20px;padding:18px;margin:14px 0;box-shadow:var(--shadow)}.card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}.card h2{font-size:16px;margin:0;color:var(--gold2)}.muted,.note{color:var(--muted);font-size:12px;line-height:1.8}.hidden{display:none!important}
+.auth-wrap{max-width:440px;margin:7vh auto}.auth-wrap .card{padding:25px}.auth-title{text-align:center;margin-bottom:20px}.auth-title .logo{margin:0 auto 12px}.auth-title h2{font-size:22px;color:var(--gold2)}.field{margin:12px 0}.field label{display:block;color:#c6d1e2;font-size:13px;margin:0 0 7px}.field input,.field select,.field textarea,input,select,textarea{width:100%;padding:12px 13px;border:1px solid #34445e;border-radius:12px;background:#0b1423;color:var(--text);outline:none;min-height:45px}.field input:focus,.field select:focus,input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px #e8bd621b}input::placeholder,textarea::placeholder{color:#73839c}.full{width:100%}
+.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}.balance-card{position:relative;overflow:hidden;background:linear-gradient(120deg,#26344c,#121c2e 72%);border:1px solid #5a4b31}.balance-card:after{content:"";position:absolute;width:220px;height:220px;border:1px solid #e8bd6229;border-radius:50%;left:-70px;top:-100px;box-shadow:0 0 0 25px #e8bd6208,0 0 0 50px #e8bd6206}.balance-label{color:#c7d0df;font-size:13px}.balance-value{font-size:clamp(30px,6vw,42px);font-weight:800;color:var(--gold2);margin:12px 0}.balance-foot{font-size:12px;color:#b6c3d5}.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.stat{background:#0e192a;border:1px solid #26364e;border-radius:16px;padding:15px}.stat .label{color:var(--muted);font-size:12px}.stat strong{display:block;font-size:21px;margin-top:9px}.greenText{color:var(--green)}.redText{color:var(--red)}.blueText{color:var(--blue)}.goldText{color:var(--gold2)}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:14px}.layout>.card{margin:0}.wide{grid-column:1/-1}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap}.toolbar>*{flex:1;min-width:130px}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 12px}.form-grid .fullrow{grid-column:1/-1}
+.progress{height:10px;border-radius:20px;background:#293750;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#b98132,#f3d58e);width:0;transition:width .3s}
+.account-row,.tx-item,.goal-item{background:#0d1727;border:1px solid #283750;border-radius:14px;padding:13px;margin:9px 0}.goal-item{border-color:#66512f}.goal-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.goal-percent{color:var(--gold2);font-weight:800}.goal-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.goal-actions input{flex:1;min-width:110px}.goal-actions button{flex:0 0 auto}.account-row{display:flex;justify-content:space-between;align-items:center;gap:12px}.tx-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.tx-title{font-weight:700}.tx-meta{color:var(--muted);font-size:12px;margin:8px 0}.tx-actions{display:flex;gap:7px}.tx-actions button{flex:1}.empty{text-align:center;color:var(--muted);padding:24px 8px;border:1px dashed #34445e;border-radius:14px}
+.annual-chart-wrap{overflow-x:auto;padding:12px 4px 4px;background:#0d1727;border:1px solid #283750;border-radius:14px;margin:12px 0}.annual-chart{display:grid;grid-template-columns:repeat(12,minmax(38px,1fr));gap:7px;min-width:520px;align-items:end}.annual-col{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0}.annual-bars{height:126px;display:flex;align-items:flex-end;justify-content:center;gap:4px;width:100%;border-bottom:1px solid #34445e}.annual-bar{width:11px;min-height:0;border-radius:5px 5px 0 0}.annual-bar.income{background:linear-gradient(180deg,#55dfae,#168765)}.annual-bar.expense{background:linear-gradient(180deg,#ff8290,#a63f53)}.annual-month-label{font-size:10px;color:var(--muted);white-space:nowrap}.annual-legend{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-size:12px;margin-top:12px}.annual-legend span{display:flex;align-items:center;gap:6px}.annual-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.chart-bars{display:grid;gap:14px}.chart-line{display:grid;grid-template-columns:85px 1fr 90px;gap:9px;align-items:center;font-size:12px}.chart-track{height:12px;background:#293750;border-radius:20px;overflow:hidden}.chart-track span{display:block;height:100%;border-radius:20px}.goldbar{background:linear-gradient(90deg,#b98132,#f3d58e)}.redbar{background:linear-gradient(90deg,#a63f53,#ff8290)}
+
+.report-section{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.report-section h3{font-size:14px;color:var(--gold2);margin:0 0 12px}
+.report-highlight{background:#0d1727;border:1px solid #66512f;border-radius:14px;padding:14px;margin-top:12px}
+.report-month{background:#0d1727;border:1px solid #283750;border-radius:13px;padding:12px;margin:9px 0}
+.report-month-head{display:flex;justify-content:space-between;gap:8px;font-size:12px;margin-bottom:9px}
+.report-barline{display:grid;grid-template-columns:58px 1fr 82px;gap:8px;align-items:center;font-size:11px;margin:7px 0}
+.report-track{height:9px;border-radius:20px;background:#293750;overflow:hidden}
+.report-track span{display:block;height:100%;border-radius:20px}
+.report-income{background:linear-gradient(90deg,#168765,#55dfae)}
+.report-expense{background:linear-gradient(90deg,#a63f53,#ff8290)}
+.report-category{display:grid;grid-template-columns:minmax(75px,1fr) 2fr 85px;gap:9px;align-items:center;font-size:12px;margin:10px 0}
+.report-category .report-track{height:10px}
+.report-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.report-print-header{display:none}
+.report-transactions{width:100%;border-collapse:collapse;margin-top:10px;font-size:12px;direction:rtl}
+.report-transactions th,.report-transactions td{border:1px solid #34445e;padding:9px 7px;text-align:right;vertical-align:top}
+.report-transactions th{background:#1a2940;color:var(--gold2)}
+.report-transactions .amount-income{color:var(--green);font-weight:700}
+.report-transactions .amount-expense{color:var(--red);font-weight:700}
+.report-tx-wrap{overflow-x:auto}
+.report-section h3{break-after:avoid}
+@media print{
+ @page{size:A4 portrait;margin:9mm}
+ body.print-report{background:#fff!important;color:#111!important;padding:0!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+ body.print-report #reportsCard{width:100%;padding:0!important;margin:0!important;break-before:auto!important}
+ body.print-report #reportsCard .report-print-header{display:block!important;text-align:center;padding:0 0 8px;margin:0 0 8px;border-bottom:2px solid #9b7a3b;break-after:avoid}
+ body.print-report #reportsCard .report-print-header h1{font-size:20px;margin:2px 0;color:#222;letter-spacing:1.5px}
+ body.print-report #reportsCard .report-print-header p{margin:3px 0;color:#444;font-size:10px}
+ body.print-report #reportsCard .report-brand-mark{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#e8bd62!important;color:#17120a;font-size:19px;font-weight:900;margin:0 auto 2px}
+ body.print-report #reportsCard .report-tagline{font-size:9px;color:#777;letter-spacing:1px;margin:0 0 5px}
+ /* Allow long report sections to flow naturally instead of forcing a mostly-empty page. */
+ body.print-report #reportsCard .report-section{break-inside:auto!important;page-break-inside:auto!important;margin-top:9px;padding-top:7px}
+ body.print-report #reportsCard .report-section h3{break-after:avoid!important;page-break-after:avoid!important;margin-bottom:6px}
+ body.print-report #reportsCard .report-month{break-inside:avoid!important;page-break-inside:avoid!important;margin:5px 0;padding:7px}
+ body.print-report #reportsCard .quick-grid{gap:6px}
+ body.print-report #reportsCard .stat{padding:8px}
+ body.print-report #reportsCard .stat strong{font-size:16px;margin-top:4px}
+ body.print-report #reportsCard .report-transactions{font-size:9px}
+ body.print-report #reportsCard .report-transactions th{background:#eee!important;color:#111!important}
+ body.print-report #reportsCard .report-transactions th,body.print-report #reportsCard .report-transactions td{border:1px solid #aaa;color:#111;padding:4px}
+ body.print-report #reportsCard .report-transactions .amount-income{color:#08734d!important}
+ body.print-report #reportsCard .report-transactions .amount-expense{color:#a32136!important}
+ body.print-report #reportsCard .report-track{border:1px solid #aaa;background:#f3f3f3!important}
+ body.print-report #reportsCard .report-income{background:#168765!important}
+ body.print-report #reportsCard .report-expense{background:#a63f53!important}
+ /* Print-safe annual chart: explicit dimensions and solid bar fills. */
+ body.print-report #reportsCard .annual-chart-wrap{overflow:visible!important;background:#fff!important;border:1px solid #aaa;padding:6px 4px;margin:6px 0}
+ body.print-report #reportsCard .annual-chart{min-width:0!important;width:100%;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px}
+ body.print-report #reportsCard .annual-bars{height:76px!important;border-bottom:1px solid #777;align-items:flex-end}
+ body.print-report #reportsCard .annual-bar{display:block!important;width:7px!important;min-height:0!important;border-radius:2px 2px 0 0}
+ body.print-report #reportsCard .annual-bar.income{background:#168765!important}
+ body.print-report #reportsCard .annual-bar.expense{background:#a63f53!important}
+ body.print-report #reportsCard .annual-month-label{font-size:8px;color:#333!important}
+ body.print-report #reportsCard .annual-legend{font-size:9px;margin-top:5px}
+ body.print-report #auth,body.print-report header,body.print-report footer{display:none!important}
+ body.print-report #app{display:block!important}
+ body.print-report #app>*:not(#reportsCard){display:none!important}
+ body.print-report #reportsCard{display:block!important;border:0;box-shadow:none;background:#fff;color:#111}
+ body.print-report #reportsCard h2,body.print-report #reportsCard h3{color:#222}
+ body.print-report #reportsCard .stat,body.print-report #reportsCard .report-month,body.print-report #reportsCard .report-highlight{background:#fff;color:#111;border:1px solid #bbb;box-shadow:none}
+ body.print-report #reportsCard .muted,body.print-report #reportsCard .note{color:#444}
+ body.print-report #reportsCard .no-print{display:none!important}
+}
+
+.nav{display:flex;gap:7px;overflow:auto;padding:2px 0 8px;margin-bottom:6px}.nav button{white-space:nowrap;background:#121e31;border:1px solid var(--line);color:#c7d2e3;border-radius:12px;padding:10px 13px}.nav button.active{background:#44351e;color:var(--gold2);border-color:#8c6b35}
+textarea{min-height:145px;direction:ltr;text-align:left;font-family:monospace;font-size:12px}.table-note{font-size:12px;color:var(--muted)}
+.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#e8bd62;color:#15120b;padding:12px 18px;border-radius:12px;font-weight:bold;box-shadow:var(--shadow);transition:.25s;z-index:20;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;color:#75849a;font-size:11px;padding:20px 5px}
+@media(max-width:720px){body{padding:10px}.hero{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.wide{grid-column:auto}.brand h1{font-size:18px}.card{padding:15px}.form-grid{grid-template-columns:1fr}.form-grid .fullrow{grid-column:auto}.head-actions .btn{padding:9px 10px;font-size:12px}}
+@media print{body{background:#fff;color:#111}.card,.stat,.tx-item,.account-row{background:#fff;color:#111;box-shadow:none;border:1px solid #bbb}.nav,.head-actions,button,.no-print{display:none!important}.muted,.note,.tx-meta{color:#444}}
+
+/* Offline demo: hide local-password/account controls; they are not authentication. */
+#auth,#securityCard{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<header>
+ <div class="brand"><div class="logo">◆</div><div><h1>SMART MONEY <span class="goldText">8.2</span></h1><p data-ar="إدارة أموالك بذكاء وأناقة" data-en="Manage your money with clarity">إدارة أموالك بذكاء وأناقة</p></div></div>
+ <div class="head-actions"><button class="btn ghost" id="langBtn" onclick="toggleLanguage()">English</button></div>
+</header>
+
+<section id="auth" class="auth-wrap">
+ <div class="card">
+  <div class="auth-title"><div class="logo">◆</div><h2 data-ar="مرحباً بعودتك" data-en="Welcome back">مرحباً بعودتك</h2><p class="muted" data-ar="سجّل الدخول لمتابعة حساباتك" data-en="Sign in to manage your finances">سجّل الدخول لمتابعة حساباتك</p></div>
+  <div class="field"><label data-ar="اسم المستخدم" data-en="Username">اسم المستخدم</label><input id="username" autocomplete="username" placeholder="Username"></div>
+  <div class="field"><label data-ar="كلمة المرور" data-en="Password">كلمة المرور</label><input id="password" type="password" autocomplete="current-password" placeholder="Password"></div>
+  <button class="btn full ghost" onclick="togglePassword()" data-ar="إظهار / إخفاء كلمة المرور" data-en="Show / hide password">إظهار / إخفاء كلمة المرور</button>
+  <button class="btn gold full" style="margin-top:10px" onclick="login()" data-ar="تسجيل الدخول" data-en="Sign in">تسجيل الدخول</button>
+  <button class="btn green full" style="margin-top:8px" onclick="register()" data-ar="إنشاء حساب جديد" data-en="Create account">إنشاء حساب جديد</button>
+  <p class="note" data-ar="نسخة محلية: بياناتك محفوظة في مساحة المتصفح على هذا الجهاز." data-en="Local app: your data is stored in this browser on this device.">نسخة محلية: بياناتك محفوظة في مساحة المتصفح على هذا الجهاز.</p>
+ </div>
+</section>
+
+<section id="app" class="hidden">
+ <nav class="nav no-print">
+  <button class="active" onclick="goTo('dashboard',this)" data-ar="نظرة عامة" data-en="Overview">نظرة عامة</button>
+  <button onclick="goTo('transactionsCard',this)" data-ar="العمليات" data-en="Transactions">العمليات</button>
+  <button onclick="goTo('budgetCard',this)" data-ar="الميزانية" data-en="Budget">الميزانية</button>
+  <button onclick="goTo('goalsCard',this)" data-ar="أهداف الادخار" data-en="Savings goals">أهداف الادخار</button>
+  <button onclick="goTo('remindersCard',this)" data-ar="التنبيهات" data-en="Reminders">التنبيهات</button>
+  <button onclick="goTo('recurringCard',this)" data-ar="المصاريف المتكررة" data-en="Recurring expenses">المصاريف المتكررة</button>
+  <button onclick="goTo('reportsCard',this)" data-ar="التقارير" data-en="Reports">التقارير</button>
+  <button onclick="goTo('backupCard',this)" data-ar="النسخ الاحتياطي" data-en="Backup">النسخ الاحتياطي</button>
+ </nav>
+ <div id="dashboard" class="hero">
+  <div class="card balance-card">
+   <div class="balance-label" data-ar="إجمالي صافي الرصيد" data-en="Total net balance">إجمالي صافي الرصيد</div>
+   <div class="balance-value" id="balance">$0.00</div>
+   <div class="balance-foot" data-ar="الرصيد = إجمالي الدخل − إجمالي المصروفات" data-en="Balance = income − expenses">الرصيد = إجمالي الدخل − إجمالي المصروفات</div>
+  </div>
+  <div class="quick-grid">
+   <div class="stat"><div class="label" data-ar="إجمالي الدخل" data-en="Total income">إجمالي الدخل</div><strong class="greenText" id="totalIncome">$0.00</strong></div>
+   <div class="stat"><div class="label" data-ar="إجمالي المصروفات" data-en="Total expenses">إجمالي المصروفات</div><strong class="redText" id="totalExpense">$0.00</strong></div>
+   <div class="stat"><div class="label" data-ar="عدد العمليات" data-en="Transactions">عدد العمليات</div><strong id="count">0</strong></div>
+   <div class="stat"><div class="label" data-ar="عدد الحسابات" data-en="Accounts">عدد الحسابات</div><strong id="accountCount">1</strong></div>
+  </div>
+ </div>
+
+ <div class="layout" style="margin-top:14px">
+  <section class="card" id="accountsCard">
+   <div class="card-head"><h2 data-ar="🏦 الحسابات المالية" data-en="🏦 Financial accounts">🏦 الحسابات المالية</h2><span class="muted" data-ar="حسب الحساب" data-en="By account">حسب الحساب</span></div>
+   <div class="toolbar"><input id="newAccount" data-ph-ar="اسم الحساب الجديد" data-ph-en="New account name" placeholder="اسم الحساب الجديد"><button class="btn gold" onclick="addAccount()" data-ar="إضافة" data-en="Add">إضافة</button></div>
+   <div id="accountSummary"></div>
+  </section>
+  <section class="card" id="budgetCard">
+   <div class="card-head"><h2 data-ar="🎯 الميزانية الشهرية" data-en="🎯 Monthly budget">🎯 الميزانية الشهرية</h2></div>
+   <div class="field"><label data-ar="حد المصروفات بالدولار" data-en="Spending limit (USD)">حد المصروفات بالدولار</label><input id="budget" type="number" min="0" step=".01" placeholder="300"></div>
+   <button class="btn gold full" onclick="saveBudget()" data-ar="حفظ الميزانية" data-en="Save budget">حفظ الميزانية</button>
+   <div class="tx-meta"><span data-ar="المصروف هذا الشهر" data-en="Spent this month">المصروف هذا الشهر</span>: <b id="spent">$0.00</b></div>
+   <div class="tx-meta"><span data-ar="المتبقي" data-en="Remaining">المتبقي</span>: <b id="remaining" class="goldText">$0.00</b></div>
+   <div class="progress"><span id="budgetBar"></span></div><p class="muted" id="budgetHint"></p>
+  </section>
+  <section class="card wide" id="goalsCard">
+   <div class="card-head"><h2 data-ar="🏆 أهداف الادخار" data-en="🏆 Savings goals">🏆 أهداف الادخار</h2><span class="muted" data-ar="تابع تقدمك نحو ما تريد" data-en="Track your progress">تابع تقدمك نحو ما تريد</span></div>
+   <div class="form-grid">
+    <div class="field"><label data-ar="اسم الهدف" data-en="Goal name">اسم الهدف</label><input id="goalName" maxlength="60" data-ph-ar="مثلاً: شراء هاتف" data-ph-en="e.g. Buy a phone" placeholder="مثلاً: شراء هاتف"></div>
+    <div class="field"><label data-ar="المبلغ المستهدف بالدولار" data-en="Target amount (USD)">المبلغ المستهدف بالدولار</label><input id="goalTarget" type="number" min="0.01" step="0.01" placeholder="1000"></div>
+    <div class="fullrow"><button class="btn gold full" onclick="addGoal()" data-ar="＋ إنشاء هدف ادخار" data-en="＋ Create savings goal">＋ إنشاء هدف ادخار</button></div>
+   </div>
+   <div id="goalsList"><div class="empty" data-ar="لا توجد أهداف ادخار بعد. أنشئ هدفك الأول!" data-en="No savings goals yet. Create your first goal!">لا توجد أهداف ادخار بعد. أنشئ هدفك الأول!</div></div>
+  </section>
+
+  <section class="card wide" id="remindersCard">
+   <div class="card-head"><h2 data-ar="🔔 مركز التنبيهات" data-en="🔔 Reminder center">🔔 مركز التنبيهات</h2><span class="muted" data-ar="المواعيد القادمة خلال 7 أيام" data-en="Due dates in the next 7 days">المواعيد القادمة خلال 7 أيام</span></div>
+   <p class="note" data-ar="يعرض هذا المركز الفواتير النشطة التي يحين موعدها خلال الأيام السبعة القادمة. يتم تحديثه عند فتح التطبيق. لا يرسل إشعارات أثناء إغلاق التطبيق." data-en="Shows active bills due within the next 7 days. Updated when you open the app. It does not send notifications while the app is closed.">يعرض هذا المركز الفواتير النشطة التي يحين موعدها خلال الأيام السبعة القادمة. يتم تحديثه عند فتح التطبيق. لا يرسل إشعارات أثناء إغلاق التطبيق.</p>
+   <div id="remindersList"><div class="empty" data-ar="لا توجد فواتير قادمة خلال 7 أيام." data-en="No bills due in the next 7 days.">لا توجد فواتير قادمة خلال 7 أيام.</div></div>
+  </section>
+
+  <section class="card wide" id="recurringCard">
+   <div class="card-head"><h2 data-ar="🔁 المصاريف المتكررة" data-en="🔁 Recurring expenses">🔁 المصاريف المتكررة</h2><span class="muted" data-ar="تُسجّل عند فتح التطبيق إذا حان موعدها" data-en="Posted when the app opens if due">تُسجّل عند فتح التطبيق إذا حان موعدها</span></div>
+   <p class="note" data-ar="أضف الإيجار أو الفواتير وحدد موعد التكرار. عند فتح التطبيق، تُضاف العمليات المستحقة مرة واحدة فقط. لا يعمل التطبيق في الخلفية ولا يرسل إشعارات." data-en="Add rent or bills and choose a schedule. When you open the app, due items are added once only. The app does not run in the background or send notifications.">أضف الإيجار أو الفواتير وحدد موعد التكرار. عند فتح التطبيق، تُضاف العمليات المستحقة مرة واحدة فقط. لا يعمل التطبيق في الخلفية ولا يرسل إشعارات.</p>
+   <div class="form-grid">
+    <div class="field"><label data-ar="اسم المصروف" data-en="Expense name">اسم المصروف</label><input id="recName" maxlength="70" data-ph-ar="مثلاً: إيجار المنزل" data-ph-en="e.g. Monthly rent" placeholder="مثلاً: إيجار المنزل"></div>
+    <div class="field"><label data-ar="المبلغ بالدولار" data-en="Amount (USD)">المبلغ بالدولار</label><input id="recAmount" type="number" min="0.01" step="0.01" placeholder="100"></div>
+    <div class="field"><label data-ar="التكرار" data-en="Frequency">التكرار</label><select id="recFrequency"><option value="monthly" data-ar="شهرياً" data-en="Monthly">شهرياً</option><option value="weekly" data-ar="أسبوعياً" data-en="Weekly">أسبوعياً</option><option value="yearly" data-ar="سنوياً" data-en="Yearly">سنوياً</option></select></div>
+    <div class="field"><label data-ar="أول موعد للتسجيل" data-en="First due date">أول موعد للتسجيل</label><input id="recNextDate" type="date"></div>
+    <div class="field"><label data-ar="الحساب" data-en="Account">الحساب</label><select id="recAccount"></select></div>
+    <div class="field"><label data-ar="التصنيف" data-en="Category">التصنيف</label><select id="recCategory"><option value="bills" data-ar="فواتير" data-en="Bills">فواتير</option><option value="food" data-ar="طعام" data-en="Food">طعام</option><option value="transport" data-ar="مواصلات" data-en="Transport">مواصلات</option><option value="health" data-ar="صحة" data-en="Health">صحة</option><option value="other" data-ar="أخرى" data-en="Other">أخرى</option></select></div>
+    <div class="fullrow"><button class="btn gold full" onclick="addRecurring()" data-ar="＋ إضافة مصروف متكرر" data-en="＋ Add recurring expense">＋ إضافة مصروف متكرر</button></div>
+   </div>
+   <div id="recurringList"><div class="empty" data-ar="لا توجد مصاريف متكررة بعد." data-en="No recurring expenses yet.">لا توجد مصاريف متكررة بعد.</div></div>
+  </section>
+
+  <section class="card">
+   <div class="card-head"><h2 data-ar="📊 توزيع الدخل والمصروفات" data-en="📊 Income & expenses">📊 توزيع الدخل والمصروفات</h2></div>
+   <div class="chart-bars">
+    <div class="chart-line"><span data-ar="الدخل" data-en="Income">الدخل</span><div class="chart-track"><span id="incomeBar" class="goldbar"></span></div><b id="incomeChartValue">$0</b></div>
+    <div class="chart-line"><span data-ar="المصروفات" data-en="Expenses">المصروفات</span><div class="chart-track"><span id="expenseBar" class="redbar"></span></div><b id="expenseChartValue">$0</b></div>
+   </div>
+   <p class="muted" data-ar="المقارنة مبنية على جميع العمليات المسجلة." data-en="Comparison is based on all recorded transactions.">المقارنة مبنية على جميع العمليات المسجلة.</p>
+  </section>
+  <section class="card">
+   <div class="card-head"><h2 data-ar="⚡ إضافة عملية سريعة" data-en="⚡ Quick transaction">⚡ إضافة عملية سريعة</h2></div>
+   <div class="toolbar"><button class="btn green" onclick="quickType('income')" data-ar="＋ دخل جديد" data-en="＋ New income">＋ دخل جديد</button><button class="btn red" onclick="quickType('expense')" data-ar="－ مصروف جديد" data-en="－ New expense">－ مصروف جديد</button></div>
+   <p class="muted" data-ar="اختر نوع العملية للانتقال إلى نموذج التسجيل." data-en="Choose a transaction type to open the entry form.">اختر نوع العملية للانتقال إلى نموذج التسجيل.</p>
+  </section>
+ </div>
+
+ <section class="card" id="transactionForm">
+  <div class="card-head"><h2 id="formTitle" data-ar="➕ تسجيل عملية مالية" data-en="➕ Record transaction">➕ تسجيل عملية مالية</h2></div>
+  <input type="hidden" id="editId">
+  <div class="form-grid">
+   <div class="field"><label data-ar="نوع العملية" data-en="Type">نوع العملية</label><select id="type"><option value="income" data-ar="دخل" data-en="Income">دخل</option><option value="expense" data-ar="مصروف" data-en="Expense">مصروف</option></select></div>
+   <div class="field"><label data-ar="المبلغ بالدولار" data-en="Amount (USD)">المبلغ بالدولار</label><input id="amount" type="number" min=".01" step=".01" placeholder="50"></div>
+   <div class="field"><label data-ar="الوصف" data-en="Description">الوصف</label><input id="description" placeholder="مثلاً راتب أو شراء"></div>
+   <div class="field"><label data-ar="التصنيف" data-en="Category">التصنيف</label><select id="category">
+    <option value="general" data-ar="عام" data-en="General">عام</option><option value="salary" data-ar="راتب" data-en="Salary">راتب</option><option value="business" data-ar="تجارة" data-en="Business">تجارة</option><option value="food" data-ar="طعام" data-en="Food">طعام</option><option value="transport" data-ar="مواصلات" data-en="Transport">مواصلات</option><option value="bills" data-ar="فواتير" data-en="Bills">فواتير</option><option value="health" data-ar="صحة" data-en="Health">صحة</option><option value="education" data-ar="تعليم" data-en="Education">تعليم</option><option value="other" data-ar="أخرى" data-en="Other">أخرى</option>
+   </select></div>
+   <div class="field"><label data-ar="الحساب" data-en="Account">الحساب</label><select id="accountSelect"></select></div>
+   <div class="field"><label data-ar="التاريخ" data-en="Date">التاريخ</label><input id="date" type="date"></div>
+   <div class="fullrow toolbar"><button class="btn gold" onclick="saveTransaction()" data-ar="حفظ العملية" data-en="Save transaction">حفظ العملية</button><button class="btn ghost hidden" id="cancelEdit" onclick="cancelEdit()" data-ar="إلغاء التعديل" data-en="Cancel edit">إلغاء التعديل</button></div>
+  </div>
+ </section>
+
+ <section class="card" id="transactionsCard">
+  <div class="card-head"><h2 data-ar="📋 سجل العمليات" data-en="📋 Transaction history">📋 سجل العمليات</h2><span class="muted" id="filteredCount"></span></div>
+  <div class="toolbar"><input id="search" data-ph-ar="ابحث بالوصف أو التصنيف..." data-ph-en="Search description or category..." placeholder="ابحث بالوصف أو التصنيف..." oninput="renderTransactions()"><select id="filter" onchange="renderTransactions()"><option value="all" data-ar="كل العمليات" data-en="All transactions">كل العمليات</option><option value="income" data-ar="الدخل فقط" data-en="Income only">الدخل فقط</option><option value="expense" data-ar="المصروفات فقط" data-en="Expenses only">المصروفات فقط</option></select><select id="accountFilter" onchange="renderTransactions()"><option value="all">كل الحسابات</option></select></div>
+  <div id="transactions"></div>
+ </section>
+
+ <section class="card" id="reportsCard">
+  <div class="report-print-header" id="reportPrintHeader"><div class="report-brand-mark">◆</div><h1>SMART MONEY</h1><p class="report-tagline">Personal Finance Report</p><p id="printReportTitle">التقرير المالي الشهري</p><p id="printReportDate"></p><p id="printReportMeta"></p></div>
+  <div class="card-head"><h2 data-ar="📊 التقارير المالية المتقدمة" data-en="📊 Advanced financial reports">📊 التقارير المالية المتقدمة</h2><button class="btn small gold no-print" onclick="exportReportPDF()" data-ar="تصدير PDF" data-en="Export PDF">تصدير PDF</button><button class="btn small no-print" onclick="shareReport()" data-ar="مشاركة التقرير" data-en="Share report">مشاركة التقرير</button></div>
+  <div class="field no-print"><label data-ar="اختر الشهر" data-en="Select month">اختر الشهر</label><input type="month" id="reportMonth" onchange="renderReport()"></div>
+  <div class="report-section no-print">
+   <h3 data-ar="🧾 إعداد الضريبة التقديرية" data-en="🧾 Estimated tax settings">🧾 إعداد الضريبة التقديرية</h3>
+   <p class="note" data-ar="تحسب هذه الأداة تقديراً على صافي الربح الموجب فقط، وليست حساباً ضريبياً رسمياً أو بديلاً عن استشارة مختص." data-en="This tool estimates tax on positive net profit only. It is not an official tax calculation or a substitute for professional advice.">تحسب هذه الأداة تقديراً على صافي الربح الموجب فقط، وليست حساباً ضريبياً رسمياً أو بديلاً عن استشارة مختص.</p>
+   <div class="toolbar"><input id="taxRate" type="number" min="0" max="100" step="0.1" placeholder="0" aria-label="Tax percentage"><button class="btn gold" onclick="saveTaxRate()" data-ar="حفظ النسبة %" data-en="Save rate %">حفظ النسبة %</button></div>
+   <div class="quick-grid" style="margin-top:10px"><div class="stat"><div class="label" data-ar="الضريبة التقديرية للشهر" data-en="Estimated monthly tax">الضريبة التقديرية للشهر</div><strong id="monthTax" class="goldText">$0.00</strong></div><div class="stat"><div class="label" data-ar="الصافي بعد الضريبة التقديرية" data-en="Net after estimated tax">الصافي بعد الضريبة التقديرية</div><strong id="monthAfterTax">$0.00</strong></div></div>
+  </div>
+  <div class="report-section">
+   <h3 data-ar="📅 التقرير السنوي" data-en="📅 Annual report">📅 التقرير السنوي</h3>
+   <div class="field no-print"><label data-ar="اختر السنة" data-en="Select year">اختر السنة</label><input id="reportYear" type="number" min="2000" max="2100" step="1" onchange="renderAnnualReport()"></div>
+   <div class="quick-grid"><div class="stat"><div class="label" data-ar="دخل السنة" data-en="Year income">دخل السنة</div><strong id="yearIncome" class="greenText">$0.00</strong></div><div class="stat"><div class="label" data-ar="مصروفات السنة" data-en="Year expenses">مصروفات السنة</div><strong id="yearExpense" class="redText">$0.00</strong></div><div class="stat"><div class="label" data-ar="صافي السنة" data-en="Year net">صافي السنة</div><strong id="yearNet">$0.00</strong></div><div class="stat"><div class="label" data-ar="الضريبة التقديرية" data-en="Estimated tax">الضريبة التقديرية</div><strong id="yearTax" class="goldText">$0.00</strong></div></div>
+   <div class="report-section"><h3 data-ar="📈 مقارنة الدخل والمصروفات شهرياً" data-en="📈 Monthly income and expense comparison">📈 مقارنة الدخل والمصروفات شهرياً</h3><div id="annualChart" class="annual-chart-wrap" role="img" aria-label="Annual monthly income and expense chart"></div><div class="annual-legend"><span><i class="annual-dot" style="background:#46d6a0"></i><span data-ar="الدخل" data-en="Income">الدخل</span></span><span><i class="annual-dot" style="background:#ff7181"></i><span data-ar="المصروفات" data-en="Expenses">المصروفات</span></span></div></div>
+   <div id="annualMonthBreakdown"></div>
+  </div>
+  <div class="quick-grid">
+   <div class="stat"><div class="label" data-ar="إجمالي الدخل" data-en="Total income">إجمالي الدخل</div><strong class="greenText" id="monthIncome">$0.00</strong></div>
+   <div class="stat"><div class="label" data-ar="إجمالي المصروفات" data-en="Total expenses">إجمالي المصروفات</div><strong class="redText" id="monthExpense">$0.00</strong></div>
+   <div class="stat" style="grid-column:1/-1"><div class="label" data-ar="صافي الربح / الخسارة" data-en="Net profit / loss">صافي الربح / الخسارة</div><strong id="monthBalance">$0.00</strong></div>
+  </div>
+  <div class="report-highlight">
+   <div class="muted" data-ar="أعلى تصنيف إنفاقاً في الشهر المحدد" data-en="Highest spending category in selected month">أعلى تصنيف إنفاقاً في الشهر المحدد</div>
+   <div id="topCategory" style="font-size:20px;font-weight:800;color:var(--gold2);margin-top:7px">—</div>
+   <div class="muted" id="topCategoryAmount">$0.00</div>
+  </div>
+  <div class="report-section">
+   <h3 data-ar="📈 مقارنة آخر 6 أشهر" data-en="📈 Last 6 months comparison">📈 مقارنة آخر 6 أشهر</h3>
+   <div class="muted" data-ar="المقارنة تبدأ من الشهر الذي اخترته وتتجه إلى الأشهر الخمسة السابقة." data-en="Shows the selected month and the five months before it.">المقارنة تبدأ من الشهر الذي اخترته وتتجه إلى الأشهر الخمسة السابقة.</div>
+   <div id="sixMonthComparison"></div>
+  </div>
+  <div class="report-section">
+   <h3 data-ar="🥇 توزيع المصروفات حسب التصنيف" data-en="🥇 Expenses by category">🥇 توزيع المصروفات حسب التصنيف</h3>
+   <div id="categoryBreakdown"></div>
+  </div>
+  <div class="report-section">
+   <h3 data-ar="📋 تفاصيل عمليات الشهر" data-en="📋 Monthly transaction details">📋 تفاصيل عمليات الشهر</h3>
+   <div id="monthlyTransactionDetails" class="report-tx-wrap"></div>
+  </div>
+  <p class="note no-print" data-ar="لإنشاء ملف PDF: اضغط تصدير PDF، ثم اختر حفظ بتنسيق PDF من نافذة الطباعة إن كان الخيار متاحاً على جهازك." data-en="To create a PDF, tap Export PDF and choose Save as PDF in the print dialog if available on your device.">لإنشاء ملف PDF: اضغط تصدير PDF، ثم اختر حفظ بتنسيق PDF من نافذة الطباعة إن كان الخيار متاحاً على جهازك.</p>
+ </section>
+
+ <section class="card" id="backupCard">
+  <div class="card-head"><h2 data-ar="🛡️ النسخ الاحتياطي والاستعادة" data-en="🛡️ Backup & restore">🛡️ النسخ الاحتياطي والاستعادة</h2></div>
+  <p class="note" data-ar="أنشئ نسخة احتياطية قبل أي تحديث. انسخ النص واحفظه في مكان آمن." data-en="Create a backup before updates. Copy the text and keep it somewhere safe.">أنشئ نسخة احتياطية قبل أي تحديث. انسخ النص واحفظه في مكان آمن.</p>
+  <div class="toolbar"><button class="btn gold" onclick="createBackup()" data-ar="إنشاء نسخة" data-en="Create backup">إنشاء نسخة</button><button class="btn ghost" onclick="copyBackup()" data-ar="نسخ النص" data-en="Copy text">نسخ النص</button></div>
+  <textarea id="backupText" placeholder="Backup JSON will appear here"></textarea>
+  <button class="btn green full" onclick="restoreBackup()" data-ar="استعادة النسخة من النص أعلاه" data-en="Restore from text above">استعادة النسخة من النص أعلاه</button>
+ </section>
+
+ <section class="card" id="securityCard">
+  <div class="card-head"><h2 data-ar="🔐 إعدادات الحساب" data-en="🔐 Account settings">🔐 إعدادات الحساب</h2></div>
+  <p class="note" data-ar="أدخل كلمة المرور الحالية لتغيير اسم المستخدم أو كلمة المرور. اترك الحقول الجديدة فارغة إذا لم ترد تغييرها." data-en="Enter your current password to change your username or password. Leave new fields blank if unchanged.">أدخل كلمة المرور الحالية لتغيير اسم المستخدم أو كلمة المرور.</p>
+  <div class="field"><label data-ar="كلمة المرور الحالية" data-en="Current password">كلمة المرور الحالية</label><input id="currentPassword" type="password"></div>
+  <div class="field"><label data-ar="اسم المستخدم الجديد (اختياري)" data-en="New username (optional)">اسم المستخدم الجديد (اختياري)</label><input id="newUsername"></div>
+  <div class="field"><label data-ar="كلمة المرور الجديدة (اختياري)" data-en="New password (optional)">كلمة المرور الجديدة (اختياري)</label><input id="newPassword" type="password"></div>
+  <div class="field"><label data-ar="تأكيد كلمة المرور الجديدة" data-en="Confirm new password">تأكيد كلمة المرور الجديدة</label><input id="confirmPassword" type="password"></div>
+  <button class="btn gold full" onclick="changeCredentials()" data-ar="حفظ بيانات الحساب" data-en="Save account details">حفظ بيانات الحساب</button>
+  <button class="btn red full" style="margin-top:9px" onclick="logout()" data-ar="تسجيل الخروج" data-en="Log out">تسجيل الخروج</button>
+ </section>
+ <section class="card"><h2 data-ar="ملاحظة حول الأمان" data-en="Security note">ملاحظة حول الأمان</h2><p class="note" data-ar="Smart Money 8.2 نسخة مستقلة تعمل محلياً دون إنترنت. تُحفظ البيانات في مساحة المتصفح على هذا الجهاز، ولا يوجد تشفير أو مزامنة سحابية. احتفظ بنسخة احتياطية، ولا تستخدمها لحفظ بيانات مالية حساسة." data-en="Smart Money 8.2 is an offline personal finance app. Data is stored in this browser on this device; there is no encryption or cloud sync. Keep backups and do not store sensitive financial data.">Smart Money 8.0 نسخة محلية تجريبية.</p></section>
+</section>
+<footer>SMART MONEY 8.2 OFFLINE · USD · <span data-ar="إدارة مالية شخصية" data-en="Personal finance">إدارة مالية شخصية</span></footer>
+</main>
+<div id="toast" class="toast"></div>
+<script>
+"use strict";
+const TX_KEY="smartMoneySale82_transactions",ACCOUNT_KEY="smartMoneySale82_unusedAccount",LOGIN_KEY="smartMoneySale82_unusedLogin",BUDGET_KEY="smartMoneySale82_budget",ACCOUNTS_KEY="smartMoneySale82_accounts",LANG_KEY="smartMoneySale82_language",GOALS_KEY="smartMoneySale82_goals",RECURRING_KEY="smartMoneySale82_recurring",TAX_KEY="smartMoneySale82_tax";
+let transactions=[],accounts=[],goals=[],recurring=[],budget=0,taxRate=0,lang=localStorage.getItem(LANG_KEY)||"ar",toastTimer;
+const messages={
+ar:{need:"أدخل اسم المستخدم وكلمة المرور",exists:"يوجد حساب مسجل بالفعل. سجّل الدخول.",created:"تم إنشاء الحساب بنجاح",badLogin:"اسم المستخدم أو كلمة المرور غير صحيحة",noAccount:"لم يتم العثور على الحساب",currentBad:"كلمة المرور الحالية غير صحيحة",changeNeed:"أدخل اسم مستخدم أو كلمة مرور جديدة",shortPass:"كلمة المرور الجديدة يجب أن تكون 6 أحرف على الأقل",mismatch:"كلمتا المرور غير متطابقتين",changed:"تم تحديث بيانات الحساب. سجّل الدخول مجدداً.",amount:"أدخل مبلغاً صحيحاً ووصفاً وتاريخاً",saved:"تم حفظ العملية بنجاح",updated:"تم تعديل العملية",notFound:"لم يتم العثور على العملية",deleteConfirm:"هل تريد حذف هذه العملية؟",budget:"أدخل ميزانية صحيحة",budgetSaved:"تم حفظ الميزانية",accountNeed:"اكتب اسم الحساب",accountExists:"هذا الحساب موجود بالفعل",accountAdded:"تمت إضافة الحساب",backup:"تم إنشاء النسخة الاحتياطية",backupEmpty:"أنشئ نسخة احتياطية أولاً",copied:"تم النسخ",copyFail:"تعذر النسخ تلقائياً. حدد النص وانسخه يدوياً.",restoreEmpty:"الصق بيانات النسخة أولاً",restoreConfirm:"ستستبدل النسخة العمليات والميزانية والحسابات والأهداف والمصاريف المتكررة ونسبة الضريبة إذا كانت موجودة. هل تريد المتابعة؟",restoreDone:"تمت استعادة النسخة بنجاح",restoreBad:"ملف النسخة غير صالح",restoreFail:"تعذرت الاستعادة: ",noItems:"لا توجد عمليات مطابقة",budgetOver:"تنبيه: تجاوزت المصروفات الميزانية المحددة.",budgetGood:"أنت ضمن حدود الميزانية.",confirmDelete:"تم حذف العملية",account:"الرئيسي",goalNeed:"أدخل اسم الهدف ومبلغاً مستهدفاً صحيحاً",goalAdded:"تم إنشاء هدف الادخار",goalSaved:"تمت إضافة المبلغ إلى هدفك",goalAmount:"أدخل مبلغاً صحيحاً أكبر من صفر",goalDelete:"هل تريد حذف هدف الادخار؟",goalDeleted:"تم حذف هدف الادخار",goalNamePrompt:"اسم الهدف الجديد:",goalTargetPrompt:"المبلغ المستهدف الجديد بالدولار:",recNeed:"أدخل اسم المصروف والمبلغ والتاريخ بشكل صحيح",recAdded:"تمت إضافة المصروف المتكرر",recDeleted:"تم حذف المصروف المتكرر",recDeleteConfirm:"هل تريد حذف هذا المصروف المتكرر؟",recPaused:"تم إيقاف المصروف المتكرر",recResumed:"تم تفعيل المصروف المتكرر",recEmpty:"لا توجد مصاريف متكررة بعد.",recDue:"تم تسجيل المصروفات المستحقة",recMonthly:"شهرياً",recWeekly:"أسبوعياً",recYearly:"سنوياً",recPause:"إيقاف",recResume:"تفعيل",recDelete:"حذف",recNext:"الموعد القادم",recActive:"نشط",recInactive:"متوقف",remEmpty:"لا توجد فواتير قادمة خلال 7 أيام.",remToday:"مستحق اليوم",remTomorrow:"مستحق غداً",remIn:"بعد",remDays:"أيام",remOverdue:"متأخر",remPaused:"مصروف متوقف"},
+en:{need:"Enter username and password",exists:"An account already exists. Please sign in.",created:"Account created successfully",badLogin:"Incorrect username or password",noAccount:"Account not found",currentBad:"Current password is incorrect",changeNeed:"Enter a new username or password",shortPass:"New password must be at least 6 characters",mismatch:"New passwords do not match",changed:"Account details updated. Please sign in again.",amount:"Enter a valid amount, description and date",saved:"Transaction saved",updated:"Transaction updated",notFound:"Transaction not found",deleteConfirm:"Delete this transaction?",budget:"Enter a valid budget",budgetSaved:"Budget saved",accountNeed:"Enter an account name",accountExists:"This account already exists",accountAdded:"Account added",backup:"Backup created",backupEmpty:"Create a backup first",copied:"Copied",copyFail:"Copy failed. Select and copy the text manually.",restoreEmpty:"Paste backup data first",restoreConfirm:"This will replace current transactions, budget, accounts, goals, recurring expenses and tax rate if included. Continue?",restoreDone:"Backup restored",restoreBad:"Invalid backup file",restoreFail:"Restore failed: ",noItems:"No matching transactions",budgetOver:"Warning: spending is over your budget.",budgetGood:"You are within your budget.",confirmDelete:"Transaction deleted",account:"Main",goalNeed:"Enter a goal name and a valid target amount",goalAdded:"Savings goal created",goalSaved:"Amount added to your goal",goalAmount:"Enter an amount greater than zero",goalDelete:"Delete this savings goal?",goalDeleted:"Savings goal deleted",goalNamePrompt:"New goal name:",goalTargetPrompt:"New target amount in USD:",recNeed:"Enter a valid expense name, amount and date",recAdded:"Recurring expense added",recDeleted:"Recurring expense deleted",recDeleteConfirm:"Delete this recurring expense?",recPaused:"Recurring expense paused",recResumed:"Recurring expense enabled",recEmpty:"No recurring expenses yet.",recDue:"Due expenses have been recorded",recMonthly:"Monthly",recWeekly:"Weekly",recYearly:"Yearly",recPause:"Pause",recResume:"Enable",recDelete:"Delete",recNext:"Next due",recActive:"Active",recInactive:"Paused",remEmpty:"No bills due in the next 7 days.",remToday:"Due today",remTomorrow:"Due tomorrow",remIn:"In",remDays:"days",remOverdue:"Overdue",remPaused:"Paused expense"}};
+function msg(k){return messages[lang][k]||k}
+function trText(ar,en){return lang==="ar"?ar:en}
+function money(n){return "$"+(Number(n)||0).toLocaleString(lang==="ar"?"en-US":"en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function today(){const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
+function toast(s){const e=document.getElementById("toast");e.textContent=s;e.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove("show"),2600)}
+function safeParse(key,fallback){try{const v=JSON.parse(localStorage.getItem(key));return v??fallback}catch(e){return fallback}}
+function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function categoryName(v){const map={general:["عام","General"],salary:["راتب","Salary"],business:["تجارة","Business"],food:["طعام","Food"],transport:["مواصلات","Transport"],bills:["فواتير","Bills"],health:["صحة","Health"],education:["تعليم","Education"],other:["أخرى","Other"]};if(map[v])return map[v][lang==="ar"?0:1];return v||trText("عام","General")}
+function applyLanguage(){
+ document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+ document.getElementById("langBtn").textContent=lang==="ar"?"English":"العربية";
+ document.querySelectorAll("[data-ar]").forEach(e=>{const v=e.dataset[lang];if(v!==undefined)e.textContent=v});
+ document.querySelectorAll("[data-ph-ar]").forEach(e=>e.placeholder=e.dataset[lang==="ar"?"phAr":"phEn"]||"");
+ if(document.getElementById("app")&&!document.getElementById("app").classList.contains("hidden"))render();
+}
+function toggleLanguage(){lang=lang==="ar"?"en":"ar";localStorage.setItem(LANG_KEY,lang);applyLanguage()}
+function togglePassword(){const e=document.getElementById("password");e.type=e.type==="password"?"text":"password"}
+function goTo(id,b){document.getElementById(id).scrollIntoView({behavior:"smooth",block:"start"});document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active")}
+function register(){const u=document.getElementById("username").value.trim(),p=document.getElementById("password").value;if(!u||!p){toast(msg("need"));return}if(localStorage.getItem(ACCOUNT_KEY)){toast(msg("exists"));return}localStorage.setItem(ACCOUNT_KEY,JSON.stringify({username:u,password:p}));localStorage.setItem(LOGIN_KEY,"true");showApp();toast(msg("created"))}
+function login(){const u=document.getElementById("username").value.trim(),p=document.getElementById("password").value,a=safeParse(ACCOUNT_KEY,null);if(!a||a.username!==u||a.password!==p){toast(msg("badLogin"));return}localStorage.setItem(LOGIN_KEY,"true");showApp()}
+function logout(){localStorage.setItem(LOGIN_KEY,"false");location.reload()}
+function loadData(){
+ const old=safeParse(TX_KEY,[]);transactions=Array.isArray(old)?old:[];
+ const ac=safeParse(ACCOUNTS_KEY,["الرئيسي"]);accounts=Array.isArray(ac)&&ac.length?ac:["الرئيسي"];
+ if(!accounts.includes("الرئيسي")&&!accounts.includes("Main"))accounts.unshift("الرئيسي");
+ transactions=transactions.map((t,i)=>({...t,id:t.id??("legacy-"+i),type:t.type==="income"?"income":"expense",amount:Number(t.amount)||0,description:t.description||t.note||"",category:t.category||"عام",date:t.date||today(),account:accounts.includes(t.account)?t.account:accounts[0]}));
+ budget=Number(localStorage.getItem(BUDGET_KEY))||0;
+ taxRate=Math.min(100,Math.max(0,Number(localStorage.getItem(TAX_KEY))||0));
+ const storedGoals=safeParse(GOALS_KEY,[]);goals=Array.isArray(storedGoals)?storedGoals.filter(g=>g&&typeof g==="object").map((g,i)=>({id:String(g.id||("goal-"+i)),name:String(g.name||""),target:Math.max(0,Number(g.target)||0),saved:Math.max(0,Number(g.saved)||0)})).filter(g=>g.name&&g.target>0):[];
+ const storedRecurring=safeParse(RECURRING_KEY,[]);
+ recurring=Array.isArray(storedRecurring)?storedRecurring.filter(r=>r&&typeof r==="object").map((r,i)=>({id:String(r.id||("rec-"+i)),name:String(r.name||""),amount:Math.max(0,Number(r.amount)||0),frequency:["weekly","monthly","yearly"].includes(r.frequency)?r.frequency:"monthly",nextDate:String(r.nextDate||today()),account:accounts.includes(r.account)?r.account:accounts[0],category:r.category||"bills",active:r.active!==false})).filter(r=>r.name&&r.amount>0):[];
+ processRecurringDue();
+ saveAll();saveGoals();saveRecurring();
+}
+function saveAll(){localStorage.setItem(TX_KEY,JSON.stringify(transactions));localStorage.setItem(ACCOUNTS_KEY,JSON.stringify(accounts));localStorage.setItem(BUDGET_KEY,String(budget))}
+function saveTaxRate(){const v=Number(document.getElementById("taxRate").value);if(!Number.isFinite(v)||v<0||v>100){toast(trText("أدخل نسبة بين 0 و100","Enter a rate between 0 and 100"));return}taxRate=v;localStorage.setItem(TAX_KEY,String(taxRate));renderReport();renderAnnualReport();toast(trText("تم حفظ نسبة الضريبة التقديرية","Estimated tax rate saved"))}
+function saveGoals(){localStorage.setItem(GOALS_KEY,JSON.stringify(goals))}
+function saveRecurring(){localStorage.setItem(RECURRING_KEY,JSON.stringify(recurring))}
+function showApp(){document.getElementById("auth").classList.add("hidden");document.getElementById("app").classList.remove("hidden");loadData();document.getElementById("date").value=today();document.getElementById("recNextDate").value=today();document.getElementById("reportMonth").value=today().slice(0,7);document.getElementById("reportYear").value=today().slice(0,4);document.getElementById("budget").value=budget||"";document.getElementById("taxRate").value=taxRate;render()}
+function refreshAccountOptions(){
+ const f=document.getElementById("accountFilter"),old=f.value||"all";f.innerHTML=`<option value="all">${trText("كل الحسابات","All accounts")}</option>`;accounts.forEach(a=>f.add(new Option(a,a)));f.value=accounts.includes(old)?old:"all";
+ const s=document.getElementById("accountSelect"),prev=s.value;s.innerHTML="";accounts.forEach(a=>s.add(new Option(a,a)));s.value=accounts.includes(prev)?prev:accounts[0];
+ const rs=document.getElementById("recAccount");if(rs){const rp=rs.value;rs.innerHTML="";accounts.forEach(a=>rs.add(new Option(a,a)));rs.value=accounts.includes(rp)?rp:accounts[0]}
+}
+function addAccount(){const n=document.getElementById("newAccount").value.trim();if(!n){toast(msg("accountNeed"));return}if(accounts.some(a=>a.toLowerCase()===n.toLowerCase())){toast(msg("accountExists"));return}accounts.push(n);document.getElementById("newAccount").value="";saveAll();render();toast(msg("accountAdded"))}
+function quickType(type){document.getElementById("type").value=type;document.getElementById("transactionForm").scrollIntoView({behavior:"smooth"});document.getElementById("amount").focus()}
+function saveTransaction(){
+ const id=document.getElementById("editId").value,type=document.getElementById("type").value,amount=Number(document.getElementById("amount").value),description=document.getElementById("description").value.trim(),category=document.getElementById("category").value,date=document.getElementById("date").value,account=document.getElementById("accountSelect").value;
+ if(!Number.isFinite(amount)||amount<=0||!description||!date){toast(msg("amount"));return}
+ const item={id:id||("tx-"+Date.now()+"-"+Math.random().toString(36).slice(2,8)),type,amount,description,category,date,account};
+ if(id){const i=transactions.findIndex(t=>String(t.id)===String(id));if(i<0){toast(msg("notFound"));return}transactions[i]=item}else transactions.push(item);
+ saveAll();cancelEdit();render();toast(id?msg("updated"):msg("saved"));
+}
+function editTransaction(id){const t=transactions.find(x=>String(x.id)===String(id));if(!t)return;document.getElementById("editId").value=t.id;document.getElementById("type").value=t.type;document.getElementById("amount").value=t.amount;document.getElementById("description").value=t.description;const cat=document.getElementById("category");let c=t.category;const legacyMap={"عام":"general","راتب":"salary","تجارة":"business","طعام":"food","مواصلات":"transport","فواتير":"bills","صحة":"health","تعليم":"education","أخرى":"other","General":"general","Salary":"salary","Business":"business","Food":"food","Transport":"transport","Bills":"bills","Health":"health","Education":"education","Other":"other"};cat.value=legacyMap[c]||c;if(!cat.value)cat.value="general";document.getElementById("date").value=t.date;document.getElementById("accountSelect").value=t.account;document.getElementById("formTitle").textContent=trText("✏️ تعديل العملية","✏️ Edit transaction");document.getElementById("cancelEdit").classList.remove("hidden");document.getElementById("transactionForm").scrollIntoView({behavior:"smooth"})}
+function cancelEdit(){document.getElementById("editId").value="";document.getElementById("amount").value="";document.getElementById("description").value="";document.getElementById("type").value="income";document.getElementById("category").value="general";document.getElementById("date").value=today();document.getElementById("formTitle").textContent=trText("➕ تسجيل عملية مالية","➕ Record transaction");document.getElementById("cancelEdit").classList.add("hidden")}
+function deleteTransaction(id){if(!confirm(msg("deleteConfirm")))return;transactions=transactions.filter(t=>String(t.id)!==String(id));saveAll();render();toast(msg("confirmDelete"))}
+function saveBudget(){const n=Number(document.getElementById("budget").value);if(!Number.isFinite(n)||n<0){toast(msg("budget"));return}budget=n;saveAll();render();toast(msg("budgetSaved"))}
+function addGoal(){
+ const name=document.getElementById("goalName").value.trim(),target=Number(document.getElementById("goalTarget").value);
+ if(!name||!Number.isFinite(target)||target<=0){toast(msg("goalNeed"));return}
+ goals.push({id:"goal-"+Date.now()+"-"+Math.random().toString(36).slice(2,7),name,target,saved:0});saveGoals();document.getElementById("goalName").value="";document.getElementById("goalTarget").value="";renderGoals();toast(msg("goalAdded"));
+}
+function addGoalMoney(id){
+ const input=document.getElementById("goalAdd-"+id),amount=Number(input&&input.value),g=goals.find(x=>x.id===id);
+ if(!g)return;if(!Number.isFinite(amount)||amount<=0){toast(msg("goalAmount"));return}
+ g.saved+=amount;saveGoals();renderGoals();toast(msg("goalSaved"));
+}
+function editGoal(id){
+ const g=goals.find(x=>x.id===id);if(!g)return;
+ const name=prompt(msg("goalNamePrompt"),g.name);if(name===null)return;const clean=name.trim();if(!clean){toast(msg("goalNeed"));return}
+ const raw=prompt(msg("goalTargetPrompt"),String(g.target));if(raw===null)return;const target=Number(raw);if(!Number.isFinite(target)||target<=0){toast(msg("goalNeed"));return}
+ g.name=clean;g.target=target;saveGoals();renderGoals();
+}
+function deleteGoal(id){if(!confirm(msg("goalDelete")))return;goals=goals.filter(g=>g.id!==id);saveGoals();renderGoals();toast(msg("goalDeleted"))}
+function renderGoals(){
+ const box=document.getElementById("goalsList");if(!box)return;
+ if(!goals.length){box.innerHTML=`<div class="empty">${trText("لا توجد أهداف ادخار بعد. أنشئ هدفك الأول!","No savings goals yet. Create your first goal!")}</div>`;return}
+ box.innerHTML=goals.map(g=>{const pct=Math.min(100,g.saved/g.target*100),remaining=Math.max(0,g.target-g.saved),done=g.saved>=g.target;return `<article class="goal-item"><div class="goal-top"><b>${escapeHTML(g.name)}</b><span class="goal-percent">${pct.toFixed(1)}%</span></div><div class="tx-meta">${trText("تم ادخار","Saved")} <b class="goldText">${money(g.saved)}</b> ${trText("من","of")} ${money(g.target)} · ${trText("المتبقي","Remaining")} <b>${money(remaining)}</b></div><div class="progress"><span style="width:${pct}%"></span></div><div class="tx-meta">${done?trText("🎉 اكتمل هدفك!","🎉 Goal completed!"):trText("واصل الادخار للوصول إلى هدفك.","Keep saving to reach your goal.")}</div><div class="goal-actions no-print"><input id="goalAdd-${g.id}" type="number" min="0.01" step="0.01" placeholder="${trText("مبلغ لإضافته ($)","Add amount ($)")}"><button class="btn green small" onclick="addGoalMoney('${g.id}')">${trText("إضافة مبلغ","Add funds")}</button><button class="btn small" onclick="editGoal('${g.id}')">${trText("تعديل","Edit")}</button><button class="btn red small" onclick="deleteGoal('${g.id}')">${trText("حذف","Delete")}</button></div></article>`}).join("");
+}
+
+
+function addRecurring(){
+ const name=document.getElementById("recName").value.trim(),amount=Number(document.getElementById("recAmount").value),frequency=document.getElementById("recFrequency").value,nextDate=document.getElementById("recNextDate").value,account=document.getElementById("recAccount").value,category=document.getElementById("recCategory").value;
+ if(!name||!Number.isFinite(amount)||amount<=0||!nextDate){toast(msg("recNeed"));return}
+ recurring.push({id:"rec-"+Date.now()+"-"+Math.random().toString(36).slice(2,7),name,amount,frequency,nextDate,account,category,active:true});
+ saveRecurring();processRecurringDue();document.getElementById("recName").value="";document.getElementById("recAmount").value="";document.getElementById("recNextDate").value=today();render();toast(msg("recAdded"));
+}
+function advanceRecurringDate(date,frequency){
+ const parts=date.split("-").map(Number),d=new Date(Date.UTC(parts[0],parts[1]-1,parts[2]));
+ if(frequency==="weekly")d.setUTCDate(d.getUTCDate()+7);
+ else if(frequency==="yearly"){const month=d.getUTCMonth(),day=d.getUTCDate();d.setUTCFullYear(d.getUTCFullYear()+1);if(d.getUTCMonth()!==month)d.setUTCDate(0)}
+ else {const day=d.getUTCDate(),month=d.getUTCMonth();d.setUTCDate(1);d.setUTCMonth(month+1);const last=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+1,0)).getUTCDate();d.setUTCDate(Math.min(day,last))}
+ return d.toISOString().slice(0,10);
+}
+function processRecurringDue(){
+ const now=today();let added=0;
+ recurring.forEach(r=>{
+  if(!r.active)return;let loops=0;
+  while(r.nextDate<=now&&loops<120){
+   const exists=transactions.some(t=>t.recurringId===r.id&&t.date===r.nextDate);
+   if(!exists){transactions.push({id:"tx-rec-"+r.id+"-"+r.nextDate,type:"expense",amount:r.amount,description:r.name,category:r.category||"bills",date:r.nextDate,account:r.account,recurringId:r.id});added++}
+   r.nextDate=advanceRecurringDate(r.nextDate,r.frequency);loops++;
+  }
+ });
+ if(added||recurring.length) {saveAll();saveRecurring()}
+ if(added) toast(msg("recDue")+": "+added);
+}
+function toggleRecurring(id){
+ const r=recurring.find(x=>x.id===id);if(!r)return;r.active=!r.active;saveRecurring();renderRecurring();toast(msg(r.active?"recResumed":"recPaused"));
+}
+function deleteRecurring(id){
+ if(!confirm(msg("recDeleteConfirm")))return;recurring=recurring.filter(r=>r.id!==id);saveRecurring();renderRecurring();toast(msg("recDeleted"));
+}
+function renderRecurring(){
+ const box=document.getElementById("recurringList");if(!box)return;
+ if(!recurring.length){box.innerHTML=`<div class="empty">${msg("recEmpty")}</div>`;return}
+ const freq=f=>f==="weekly"?msg("recWeekly"):f==="yearly"?msg("recYearly"):msg("recMonthly");
+ box.innerHTML=recurring.map(r=>`<article class="tx-item"><div class="tx-top"><b>${escapeHTML(r.name)} · ${money(r.amount)}</b><span class="${r.active?"greenText":"redText"}">${r.active?msg("recActive"):msg("recInactive")}</span></div><div class="tx-meta">${freq(r.frequency)} · ${escapeHTML(r.account)} · ${trText("الموعد القادم","Next due")}: ${escapeHTML(r.nextDate)}</div><div class="tx-actions"><button class="btn small" onclick="toggleRecurring('${r.id}')">${r.active?msg("recPause"):msg("recResume")}</button><button class="btn red small" onclick="deleteRecurring('${r.id}')">${msg("recDelete")}</button></div></article>`).join("");
+}
+
+function renderReminders(){
+ const box=document.getElementById("remindersList");if(!box)return;
+ const base=today().split("-").map(Number),baseUTC=Date.UTC(base[0],base[1]-1,base[2]);
+ const upcoming=recurring.filter(r=>r.active).map(r=>{const p=String(r.nextDate).split("-").map(Number);if(p.length!==3||p.some(n=>!Number.isFinite(n)))return null;const diff=Math.round((Date.UTC(p[0],p[1]-1,p[2])-baseUTC)/86400000);return {...r,daysLeft:diff}}).filter(r=>r&&r.daysLeft>=0&&r.daysLeft<=7).sort((a,b)=>a.daysLeft-b.daysLeft);
+ if(!upcoming.length){box.innerHTML=`<div class="empty">${msg("remEmpty")}</div>`;return}
+ box.innerHTML=upcoming.map(r=>{const when=r.daysLeft===0?msg("remToday"):r.daysLeft===1?msg("remTomorrow"):msg("remIn")+" "+r.daysLeft+" "+msg("remDays");return `<article class="tx-item" style="border-color:${r.daysLeft<=1?'#8c6b35':'#34445e'}"><div class="tx-top"><b>${escapeHTML(r.name)} · ${money(r.amount)}</b><span class="${r.daysLeft<=1?'goldText':'blueText'}">🔔 ${when}</span></div><div class="tx-meta">${escapeHTML(r.nextDate)} · ${escapeHTML(r.account)} · ${r.frequency==="weekly"?msg("recWeekly"):r.frequency==="yearly"?msg("recYearly"):msg("recMonthly")}</div></article>`}).join("");
+}
+
+function renderDashboard(){
+ const inc=transactions.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0),exp=transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0);
+ document.getElementById("totalIncome").textContent=money(inc);document.getElementById("totalExpense").textContent=money(exp);document.getElementById("balance").textContent=money(inc-exp);document.getElementById("count").textContent=transactions.length;document.getElementById("accountCount").textContent=accounts.length;
+ const max=Math.max(inc,exp,1);document.getElementById("incomeBar").style.width=(inc/max*100)+"%";document.getElementById("expenseBar").style.width=(exp/max*100)+"%";document.getElementById("incomeChartValue").textContent=money(inc);document.getElementById("expenseChartValue").textContent=money(exp);
+ const month=today().slice(0,7),spent=transactions.filter(t=>t.type==="expense"&&(t.date||"").slice(0,7)===month).reduce((s,t)=>s+t.amount,0),remaining=budget-spent;
+ document.getElementById("spent").textContent=money(spent);document.getElementById("remaining").textContent=money(remaining);document.getElementById("remaining").className=remaining<0?"redText":"goldText";document.getElementById("budgetBar").style.width=(budget?Math.min(100,spent/budget*100):0)+"%";document.getElementById("budgetHint").textContent=budget?(spent>budget?msg("budgetOver"):msg("budgetGood")):trText("حدد ميزانيتك لمتابعة المصروفات.","Set a budget to track your spending.");
+ let html="";accounts.forEach(a=>{const i=transactions.filter(t=>t.account===a&&t.type==="income").reduce((s,t)=>s+t.amount,0),e=transactions.filter(t=>t.account===a&&t.type==="expense").reduce((s,t)=>s+t.amount,0);html+=`<div class="account-row"><div><b>${escapeHTML(a)}</b><div class="tx-meta">${trText("دخل","Income")} ${money(i)} · ${trText("مصروف","Expense")} ${money(e)}</div></div><strong class="${i-e>=0?"goldText":"redText"}">${money(i-e)}</strong></div>`});document.getElementById("accountSummary").innerHTML=html;refreshAccountOptions();
+}
+function renderTransactions(){
+ const q=document.getElementById("search").value.trim().toLowerCase(),f=document.getElementById("filter").value,af=document.getElementById("accountFilter").value;
+ const list=transactions.filter(t=>(String(t.description)+" "+String(t.category)+" "+String(t.account)).toLowerCase().includes(q)&&(f==="all"||t.type===f)&&(af==="all"||t.account===af)).slice().sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+ document.getElementById("filteredCount").textContent=list.length+" / "+transactions.length;
+ if(!list.length){document.getElementById("transactions").innerHTML=`<div class="empty">${msg("noItems")}</div>`;return}
+ document.getElementById("transactions").innerHTML=list.map(t=>`<article class="tx-item"><div class="tx-top"><span class="tx-title ${t.type==="income"?"greenText":"redText"}">${t.type==="income"?trText("دخل","Income"):trText("مصروف","Expense")} · ${money(t.amount)}</span><span class="muted">${escapeHTML(t.date)}</span></div><div style="margin-top:8px">${escapeHTML(t.description)}</div><div class="tx-meta">${escapeHTML(categoryName(t.category))} · ${escapeHTML(t.account)}</div><div class="tx-actions"><button class="btn small" onclick="editTransaction('${String(t.id).replace(/'/g,"")}')">${trText("تعديل","Edit")}</button><button class="btn red small" onclick="deleteTransaction('${String(t.id).replace(/'/g,"")}')">${trText("حذف","Delete")}</button></div></article>`).join("");
+}
+function monthKeyOffset(key,offset){const p=key.split("-").map(Number);const d=new Date(Date.UTC(p[0],p[1]-1+offset,1));return d.getUTCFullYear()+"-"+String(d.getUTCMonth()+1).padStart(2,"0")}
+function monthLabel(key){const p=key.split("-").map(Number);const d=new Date(Date.UTC(p[0],p[1]-1,1));return d.toLocaleDateString(lang==="ar"?"ar":"en-US",{month:"short",year:"numeric",timeZone:"UTC"})}
+function renderReport(){
+ const m=document.getElementById("reportMonth").value||today().slice(0,7);
+ const a=transactions.filter(t=>(t.date||"").slice(0,7)===m);
+ const inc=a.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0);
+ const exp=a.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0);
+ const net=inc-exp;
+ const monthTax=Math.max(0,net)*taxRate/100;
+ document.getElementById("monthTax").textContent=money(monthTax);
+ document.getElementById("monthAfterTax").textContent=money(net-monthTax);
+ document.getElementById("monthIncome").textContent=money(inc);
+ document.getElementById("monthExpense").textContent=money(exp);
+ document.getElementById("monthBalance").textContent=money(net);
+ document.getElementById("monthBalance").className=net>=0?"greenText":"redText";
+ const cats={};a.filter(t=>t.type==="expense").forEach(t=>{const k=String(t.category||"other");cats[k]=(cats[k]||0)+Number(t.amount||0)});
+ const catRows=Object.entries(cats).sort((x,y)=>y[1]-x[1]);
+ document.getElementById("topCategory").textContent=catRows.length?categoryName(catRows[0][0]):trText("لا توجد مصروفات","No expenses");
+ document.getElementById("topCategoryAmount").textContent=catRows.length?money(catRows[0][1]):money(0);
+ const six=[];for(let n=5;n>=0;n--){const key=monthKeyOffset(m,-n),rows=transactions.filter(t=>(t.date||"").slice(0,7)===key),mi=rows.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0),me=rows.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0);six.push({key,income:mi,expense:me})}
+ const max=Math.max(1,...six.flatMap(x=>[x.income,x.expense]));
+ document.getElementById("sixMonthComparison").innerHTML=six.map(x=>`<div class="report-month"><div class="report-month-head"><b>${escapeHTML(monthLabel(x.key))}</b><span class="${x.income-x.expense>=0?"greenText":"redText"}">${trText("الصافي","Net")}: ${money(x.income-x.expense)}</span></div><div class="report-barline"><span class="greenText">${trText("دخل","Income")}</span><div class="report-track"><span class="report-income" style="width:${x.income/max*100}%"></span></div><b>${money(x.income)}</b></div><div class="report-barline"><span class="redText">${trText("مصروف","Expense")}</span><div class="report-track"><span class="report-expense" style="width:${x.expense/max*100}%"></span></div><b>${money(x.expense)}</b></div></div>`).join("");
+ const maxCat=Math.max(1,...catRows.map(x=>x[1]));
+ document.getElementById("categoryBreakdown").innerHTML=catRows.length?catRows.map(([k,v])=>`<div class="report-category"><b>${escapeHTML(categoryName(k))}</b><div class="report-track"><span class="report-expense" style="width:${v/maxCat*100}%"></span></div><strong>${money(v)}</strong></div>`).join(""):`<div class="empty">${trText("لا توجد مصروفات لهذا الشهر.","No expenses for this month.")}</div>`;
+ const monthRows=a.slice().sort((x,y)=>(y.date||"").localeCompare(x.date||""));
+ const detailBox=document.getElementById("monthlyTransactionDetails");
+ if(!monthRows.length){detailBox.innerHTML=`<div class="empty">${trText("لا توجد عمليات مسجلة لهذا الشهر.","No transactions recorded for this month.")}</div>`}
+ else {detailBox.innerHTML=`<table class="report-transactions"><thead><tr><th>${trText("التاريخ","Date")}</th><th>${trText("البيان","Description")}</th><th>${trText("النوع","Type")}</th><th>${trText("التصنيف","Category")}</th><th>${trText("الحساب","Account")}</th><th>${trText("المبلغ","Amount")}</th></tr></thead><tbody>${monthRows.map(t=>`<tr><td>${escapeHTML(t.date||"")}</td><td>${escapeHTML(t.description||"")}</td><td>${t.type==="income"?trText("دخل","Income"):trText("مصروف","Expense")}</td><td>${escapeHTML(categoryName(t.category||"other"))}</td><td>${escapeHTML(t.account||"")}</td><td class="${t.type==="income"?"amount-income":"amount-expense"}">${t.type==="income"?"+":"−"}${money(t.amount)}</td></tr>`).join("")}</tbody></table>`}
+ const title=trText("التقرير المالي لشهر ","Monthly financial report · ")+monthLabel(m);
+ document.getElementById("printReportTitle").textContent=title;
+ document.getElementById("printReportDate").textContent=trText("تاريخ الإصدار: ","Generated: ")+new Date().toLocaleString(lang==="ar"?"ar":"en-US");
+ document.getElementById("printReportMeta").textContent=trText("عدد العمليات: ","Transactions: ")+monthRows.length+" · "+trText("العملة: الدولار الأمريكي","Currency: US Dollar");
+}
+function renderAnnualReport(){
+ const year=String(Math.max(2000,Math.min(2100,Number(document.getElementById("reportYear").value)||Number(today().slice(0,4)))));
+ const rows=transactions.filter(t=>(t.date||"").slice(0,4)===year);
+ const income=rows.filter(t=>t.type==="income").reduce((s,t)=>s+Number(t.amount||0),0);
+ const expense=rows.filter(t=>t.type==="expense").reduce((s,t)=>s+Number(t.amount||0),0);
+ const net=income-expense,tax=Math.max(0,net)*taxRate/100;
+ document.getElementById("yearIncome").textContent=money(income);document.getElementById("yearExpense").textContent=money(expense);document.getElementById("yearNet").textContent=money(net);document.getElementById("yearNet").className=net>=0?"greenText":"redText";document.getElementById("yearTax").textContent=money(tax);
+ const names=lang==="ar"?["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"]:["January","February","March","April","May","June","July","August","September","October","November","December"];
+ const monthly=Array.from({length:12},(_,i)=>{const key=year+"-"+String(i+1).padStart(2,"0"),a=rows.filter(t=>(t.date||"").slice(0,7)===key),mi=a.filter(t=>t.type==="income").reduce((s,t)=>s+Number(t.amount||0),0),me=a.filter(t=>t.type==="expense").reduce((s,t)=>s+Number(t.amount||0),0),mn=mi-me,mt=Math.max(0,mn)*taxRate/100;return {i,a,mi,me,mn,mt}});
+ const chartMax=Math.max(1,...monthly.flatMap(m=>[m.mi,m.me]));
+ document.getElementById("annualChart").innerHTML=`<div class="annual-chart">${monthly.map(m=>`<div class="annual-col"><div class="annual-bars"><span class="annual-bar income" style="height:${m.mi/chartMax*100}%" title="${trText("الدخل","Income")}: ${money(m.mi)}"></span><span class="annual-bar expense" style="height:${m.me/chartMax*100}%" title="${trText("المصروفات","Expenses")}: ${money(m.me)}"></span></div><span class="annual-month-label">${names[m.i].slice(0,3)}</span></div>`).join("")}</div>`;
+ const rowsHtml=monthly.map(m=>`<div class="report-month"><div class="report-month-head"><b>${names[m.i]}</b><span>${trText("عدد العمليات: ","Transactions: ")}${m.a.length}</span></div><div class="report-barline"><span class="greenText">${trText("دخل","Income")}</span><div class="report-track"><span class="report-income" style="width:${income?m.mi/income*100:0}%"></span></div><b>${money(m.mi)}</b></div><div class="report-barline"><span class="redText">${trText("مصروف","Expense")}</span><div class="report-track"><span class="report-expense" style="width:${expense?m.me/expense*100:0}%"></span></div><b>${money(m.me)}</b></div><div class="muted">${trText("الصافي","Net")}: ${money(m.mn)} · ${trText("الضريبة التقديرية","Est. tax")}: ${money(m.mt)}</div></div>`).join("");
+ document.getElementById("annualMonthBreakdown").innerHTML=rowsHtml;
+}
+function exportReportPDF(){renderReport();document.body.classList.add("print-report");const done=()=>{document.body.classList.remove("print-report");window.removeEventListener("afterprint",done)};window.addEventListener("afterprint",done,{once:true});window.print();setTimeout(done,2000)}
+async function shareReport(){
+ const m=document.getElementById("reportMonth").value||today().slice(0,7);
+ const rows=transactions.filter(t=>(t.date||"").slice(0,7)===m);
+ const income=rows.filter(t=>t.type==="income").reduce((s,t)=>s+Number(t.amount||0),0);
+ const expense=rows.filter(t=>t.type==="expense").reduce((s,t)=>s+Number(t.amount||0),0);
+ const net=income-expense;
+ const title=trText("تقرير Smart Money لشهر ","Smart Money report for ")+monthLabel(m);
+ const lines=["SMART MONEY",title,"",trText("إجمالي الدخل: ","Total income: ")+money(income),trText("إجمالي المصروفات: ","Total expenses: ")+money(expense),trText("الصافي: ","Net: ")+money(net),trText("عدد العمليات: ","Transactions: ")+rows.length,"",trText("تم إنشاء التقرير بواسطة Smart Money","Generated by Smart Money")];
+ const shareData={title,text:lines.join("\n")};
+ try{
+  if(navigator.share && (!navigator.canShare || navigator.canShare({text:shareData.text}))) await navigator.share(shareData);
+  else if(navigator.clipboard && navigator.clipboard.writeText){await navigator.clipboard.writeText(shareData.text);toast(trText("تم نسخ ملخص التقرير؛ يمكنك لصقه في واتساب أو البريد.","Report summary copied; you can paste it into WhatsApp or email."));}
+  else {const box=document.createElement("textarea");box.value=shareData.text;document.body.appendChild(box);box.select();const ok=document.execCommand("copy");box.remove();toast(ok?trText("تم نسخ ملخص التقرير.","Report summary copied."):trText("تعذرت المشاركة على هذا المتصفح.","Sharing is unavailable in this browser."));}
+ }catch(e){if(e&&e.name!=="AbortError")toast(trText("تعذرت المشاركة. جرّب مرة أخرى.","Could not share. Please try again."));}
+}
+function render(){renderDashboard();renderTransactions();renderReport();renderAnnualReport();renderGoals();renderRecurring();renderReminders()}
+function createBackup(){const data={version:"8.0",transactions,budget,accounts,goals,recurring,taxRate,language:lang,exportedAt:new Date().toISOString()};document.getElementById("backupText").value=JSON.stringify(data,null,2);toast(msg("backup"))}
+async function copyBackup(){const box=document.getElementById("backupText");if(!box.value.trim()){toast(msg("backupEmpty"));return}box.focus();box.select();try{if(navigator.clipboard&&navigator.clipboard.writeText)await navigator.clipboard.writeText(box.value);else if(!document.execCommand("copy"))throw Error("copy");toast(msg("copied"))}catch(e){toast(msg("copyFail"))}}
+function restoreBackup(){const raw=document.getElementById("backupText").value.trim();if(!raw){toast(msg("restoreEmpty"));return}if(!confirm(msg("restoreConfirm")))return;try{const d=JSON.parse(raw);if(!d||!Array.isArray(d.transactions))throw Error(msg("restoreBad"));let a=Array.isArray(d.accounts)&&d.accounts.length?d.accounts:["الرئيسي"];if(!a.includes("الرئيسي")&&!a.includes("Main"))a.unshift("الرئيسي");const tx=d.transactions.map((t,i)=>({...t,id:t.id??("restored-"+i+"-"+Date.now()),type:t.type==="income"?"income":"expense",amount:Number(t.amount)||0,description:t.description||t.note||"",category:t.category||"عام",date:t.date||today(),account:a.includes(t.account)?t.account:a[0]}));if(tx.some(t=>!Number.isFinite(t.amount)||t.amount<0))throw Error(msg("restoreBad"));transactions=tx;accounts=a;budget=Math.max(0,Number(d.budget)||0);if(Array.isArray(d.recurring))recurring=d.recurring.filter(r=>r&&typeof r==="object").map((r,i)=>({id:String(r.id||("restored-rec-"+i+"-"+Date.now())),name:String(r.name||""),amount:Math.max(0,Number(r.amount)||0),frequency:["weekly","monthly","yearly"].includes(r.frequency)?r.frequency:"monthly",nextDate:String(r.nextDate||today()),account:a.includes(r.account)?r.account:a[0],category:r.category||"bills",active:r.active!==false})).filter(r=>r.name&&r.amount>0);if(d.taxRate!==undefined){const tr=Number(d.taxRate);if(Number.isFinite(tr)&&tr>=0&&tr<=100){taxRate=tr;localStorage.setItem(TAX_KEY,String(taxRate));document.getElementById("taxRate").value=taxRate}}if(Array.isArray(d.goals))goals=d.goals.filter(g=>g&&typeof g==="object").map((g,i)=>({id:String(g.id||("restored-goal-"+i+"-"+Date.now())),name:String(g.name||""),target:Math.max(0,Number(g.target)||0),saved:Math.max(0,Number(g.saved)||0)})).filter(g=>g.name&&g.target>0);saveAll();saveGoals();saveRecurring();document.getElementById("budget").value=budget;render();toast(msg("restoreDone"))}catch(e){toast(msg("restoreFail")+e.message)}}
+function changeCredentials(){const current=document.getElementById("currentPassword").value,newUser=document.getElementById("newUsername").value.trim(),newPass=document.getElementById("newPassword").value,confirmPass=document.getElementById("confirmPassword").value,a=safeParse(ACCOUNT_KEY,null);if(!a){toast(msg("noAccount"));return}if(current!==a.password){toast(msg("currentBad"));return}if(!newUser&&!newPass){toast(msg("changeNeed"));return}if(newPass&&newPass.length<6){toast(msg("shortPass"));return}if(newPass!==confirmPass&&newPass){toast(msg("mismatch"));return}if(newUser)a.username=newUser;if(newPass)a.password=newPass;localStorage.setItem(ACCOUNT_KEY,JSON.stringify(a));localStorage.setItem(LOGIN_KEY,"false");alert(msg("changed"));location.reload()}
+document.getElementById("filter").addEventListener("change",renderTransactions);
+applyLanguage();
+/* Offline demo edition: no fake password screen. Data stays in this browser profile. */
+showApp();
+</script>
+</body>
+</html>
