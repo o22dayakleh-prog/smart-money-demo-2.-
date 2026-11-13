@@ -511,6 +511,13 @@ document.getElementById("filter").addEventListener("change",renderTransactions);
 applyLanguage();
 /* Offline demo edition: no fake password screen. Data stays in this browser profile. */
 showApp();
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(() => console.log("Smart Money جاهز للعمل"))
+      .catch(error => console.error("Service Worker Error:", error));
+  });
+}
 </script>
 </body>
 </html>
