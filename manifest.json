@@ -1,0 +1,13 @@
+{
+  "background_color": "rgb(1, 2, 17)",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Smart Money",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Smart Money",
+  "start_url": "/",
+  "theme_color": "#090d18",
+  "id": "smart-money-demo",
+  "description": "تطبيق لإدارة الأموال والدخل والمصروفات والمدخرات"
+}
